@@ -15,10 +15,10 @@ w = Fore.WHITE
 cy = Fore.CYAN
 
 
-info = lg + '(' + w + 'i' + lg + ')' + rs
-error = lg + '(' + r + '!' + lg + ')' + rs
-success = w + '(' + lg + '+' + w + ')' + rs
-INPUT = lg + '(' + cy + '~' + lg + ')' + rs
+info = f'{lg}({w}i{lg}){rs}'
+error = f'{lg}({r}!{lg}){rs}'
+success = f'{w}({lg}+{w}){rs}'
+INPUT = f'{lg}({cy}~{lg}){rs}'
 colors = [lg, w, r, cy]
 
 
@@ -42,15 +42,15 @@ print(f'  {r}Telegram {w}@PrinceXofficial {r}| Instagram: {w}@saifalisew1508{rs}
 #workdir = 'session/'
 method = input('Choose Method Username or ID: ').lower()
 async def main():
-     root = Path.cwd()
-     config = (json.load(open(root / "config.json")))
-     gp_s_id = int(str("-100")+str(config['group_source']))
-     gp_t_id = int(str("-100")+str(config['group_target']))
-     path_group =  root / 'data' / 'source_user.json'
-     path_group2 = root / 'data' / 'target_user.json'
-     path_group4 = root / 'data' / 'source_admin.json'
-     await get_data(gp_s_id, gp_t_id, config, method)
-     filterus(path_group,path_group2, path_group4, root)
+    root = Path.cwd()
+    config = (json.load(open(root / "config.json")))
+    gp_s_id = int("-100" + str(config['group_source']))
+    gp_t_id = int("-100" + str(config['group_target']))
+    path_group =  root / 'data' / 'source_user.json'
+    path_group2 = root / 'data' / 'target_user.json'
+    path_group4 = root / 'data' / 'source_admin.json'
+    await get_data(gp_s_id, gp_t_id, config, method)
+    filterus(path_group,path_group2, path_group4, root)
      
 asyncio.run(main())
 
