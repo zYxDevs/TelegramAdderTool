@@ -13,10 +13,10 @@ w = Fore.WHITE
 cy = Fore.CYAN
 
 
-info = lg + '(' + w + 'i' + lg + ')' + rs
-error = lg + '(' + r + '!' + lg + ')' + rs
-success = w + '(' + lg + '+' + w + ')' + rs
-INPUT = lg + '(' + cy + '~' + lg + ')' + rs
+info = f'{lg}({w}i{lg}){rs}'
+error = f'{lg}({r}!{lg}){rs}'
+success = f'{w}({lg}+{w}){rs}'
+INPUT = f'{lg}({cy}~{lg}){rs}'
 colors = [lg, w, r, cy]
 
 
@@ -40,25 +40,23 @@ print(f'  {r}Telegram {w}@PrinceXofficial {r}| Instagram: {w}@saifalisew1508{rs}
 #option for choose username or id
 option = input('choose method username or id: ').lower() 
 async def main():
-        #loads member
-        try:
-            user_id = (json.load(open("data/user.json", encoding="utf-8")))
-        except:
-            user_id = (json.load(open("data/source_user.json", encoding="utf-8")))
+    #loads member
+    try:
+        user_id = (json.load(open("data/user.json", encoding="utf-8")))
+    except:
+        user_id = (json.load(open("data/source_user.json", encoding="utf-8")))
 
-        #loads users and channel info
-        config = (json.load(open("config.json", encoding="utf-8")))
-        
-        
-          
-        #list to chcek active member
-        activelist = ['UserStatus.RECENTLY', 'UserStatus.LAST_MONTH', 'UserStatus.LAST_WEEK', 'UserStatus.OFFLINE', 'UserStatus.RECENTLY', 'UserStatus.ONLINE' ]
-        #count retrive old state             
-        last_active = config["from_date_active"]
-        added = 0
-        active = []
-        for x in dropwhile(lambda y: y != last_active, activelist):
-           active.append(x)
-        await add_member(user_id, config, active, option)
+    #loads users and channel info
+    config = (json.load(open("config.json", encoding="utf-8")))
+
+
+
+    #list to chcek active member
+    activelist = ['UserStatus.RECENTLY', 'UserStatus.LAST_MONTH', 'UserStatus.LAST_WEEK', 'UserStatus.OFFLINE', 'UserStatus.RECENTLY', 'UserStatus.ONLINE' ]
+    #count retrive old state             
+    last_active = config["from_date_active"]
+    added = 0
+    active = list(dropwhile(lambda y: y != last_active, activelist))
+    await add_member(user_id, config, active, option)
 
 asyncio.run(main())

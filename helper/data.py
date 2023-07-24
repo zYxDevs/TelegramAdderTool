@@ -18,9 +18,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
     phonedata = config["accounts"][0]
     phone = phonedata["phone"]
     async with Client(phone, workdir="session") as app:
-        if await app.get_me():
-            pass
-        else:
+        if not await app.get_me():
             PYRO.info(f"{phone} login failed")
         try:
             await app.get_chat(gp_s_id)
@@ -29,7 +27,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             co = input('will you like to continue Y/N')
             if co.lower() == 'y':
                 PYRO.info('Exiting The program')
-                exit() 
+                exit()
         try:
             await app.get_chat(gp_t_id)
         except:
@@ -100,8 +98,8 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
         with open('data/source_admin.json', 'w', encoding='utf-8') as f:
             json.dump(mem3, f, indent=4, ensure_ascii=False)
             PYRO.info("saving admin user")
-        
-        if "u" == stop[0]:
+
+        if stop[0] == "u":
             exit()
     total_account = len(config['accounts'])
     account = config['accounts']

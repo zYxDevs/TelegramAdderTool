@@ -13,10 +13,10 @@ w = Fore.WHITE
 cy = Fore.CYAN
 
 
-info = lg + '(' + w + 'i' + lg + ')' + rs
-error = lg + '(' + r + '!' + lg + ')' + rs
-success = w + '(' + lg + '+' + w + ')' + rs
-INPUT = lg + '(' + cy + '~' + lg + ')' + rs
+info = f'{lg}({w}i{lg}){rs}'
+error = f'{lg}({r}!{lg}){rs}'
+success = f'{w}({lg}+{w}){rs}'
+INPUT = f'{lg}({cy}~{lg}){rs}'
 colors = [lg, w, r, cy]
 
 

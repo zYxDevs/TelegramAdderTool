@@ -15,10 +15,10 @@ w = Fore.WHITE
 cy = Fore.CYAN
 
 
-info = lg + '(' + w + 'i' + lg + ')' + rs
-error = lg + '(' + r + '!' + lg + ')' + rs
-success = w + '(' + lg + '+' + w + ')' + rs
-INPUT = lg + '(' + cy + '~' + lg + ')' + rs
+info = f'{lg}({w}i{lg}){rs}'
+error = f'{lg}({r}!{lg}){rs}'
+success = f'{w}({lg}+{w}){rs}'
+INPUT = f'{lg}({cy}~{lg}){rs}'
 colors = [lg, w, r, cy]
 
 
@@ -44,10 +44,9 @@ def check_num(phone):
     """Parses the given phone, or returns None if it's invalid."""
     if isinstance(phone, int):
         return str(phone)
-    else:
-        phone = re.sub(r'[+()\s-]', '', str(phone))
-        if phone.isdigit():
-            return phone
+    phone = re.sub(r'[+()\s-]', '', str(phone))
+    if phone.isdigit():
+        return phone
 
 DEFAULT_API_ID = 25194789
 DEFAULT_API_HASH = "e59afe25c17585635ec031c889eb5b34"
@@ -59,17 +58,13 @@ delay = int(input("Enter Delay Timing For Per Member Adding : "))
 group_source = input("Enter The Group ID Of The Group From Which The Members Have To Be Scraped : ")
 group_target = input("Enter The Group ID Of The Group In Which The Member Is To Be Added : ")
 group_source_username = input("Enter The Username Of The Group From Which The Members Have To Be Scraped : ")
-if '+' in group_source_username:
-    pass
-else:
+if '+' not in group_source_username:
     group_source_username = re.sub(
     "(@)|(https://t.me/)|(http://t.me/)",
     "",
      group_source_username)
 group_target_username = input("Enter The Username Of The Group In Which The Member Is To Be Added : ")
-if '+' in group_target_username:
-    pass
-else:
+if '+' not in group_target_username:
     group_target_username = re.sub(
     "(@)|(https://t.me/)|(http://t.me/)",
     "",
@@ -82,9 +77,7 @@ def main():
     # for _ in range(n):
     if choice[0] == "n":
         with open('phone.csv', 'r') as f:
-            str_list = [row[0] for row in csv.reader(f)]
-            po = 0
-            if str_list:
+            if str_list := [row[0] for row in csv.reader(f)]:
                 config = {
                                 "group_source": group_source,
                                 "group_target": group_target,
@@ -98,7 +91,6 @@ def main():
                             }
                 for pphone in str_list:
                     phone = check_num(pphone)
-                    po += 1
                     print(f"{phone} Added To Config Run python login.py To Login Your Accounts")
                     new_account = {
                         "phone": phone,

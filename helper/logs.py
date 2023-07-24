@@ -9,15 +9,13 @@ def log(name):
     # create console handler and set level to INFO
         pyro = logging.StreamHandler()
         pyro.setLevel(logging.INFO)
-        
+
         # create formatter For PYRO
         formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-        
+
         # add formatter to pyro
         pyro.setFormatter(formatter)
-        
+
         # add ch to logger
         logger.addHandler(pyro)
-    else:
-        pass
     return logger

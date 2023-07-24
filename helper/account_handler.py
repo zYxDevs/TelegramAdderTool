@@ -22,7 +22,7 @@ def updatecount(count):
 # account rotation
 
 async def add_member(user_id, config, active, method):
-    # stop in middle 
+    # stop in middle
     def handler(signum, frame):
         msg = " Ctrl-c OR Ctrl-z was pressed. Do you really want to exit? y/n "
         print(msg)
@@ -32,7 +32,8 @@ async def add_member(user_id, config, active, method):
             PYRO.info('Bye!')
             sys.exit()
         else:
-            PYRO.info(f'Okat then i will continue')
+            PYRO.info('Okat then i will continue')
+
     # create logger
     PYRO = log('PYRO-Adder')
     PYRO.propagate= False
@@ -47,7 +48,7 @@ async def add_member(user_id, config, active, method):
             privacy2  = counterall['privacy']
             uc2  = counterall['already in too many channel/group']
     except:
-            
+
             counter = added2 = privacy2 = uc2 = skipped2 =  0
 
     chat_idt = int(str(-100) +str(config['group_target']))
@@ -66,6 +67,7 @@ async def add_member(user_id, config, active, method):
         wait_time = str(waittime / len(applist))
         PYRO.info(f'sleep: {wait_time}')
         await asyncio.sleep(waittime / len(applist))
+
     #single line f string for printinf final output
     def printfinal():
         print(f"{added} : members were added\n {skipped} : members were skipped\n {privacy} : members had privacy enable or not in mutual contact\n {uc} : user banned in chat\n {um} : members not in mutual contat\n {bot}:  bot accont skipped")
@@ -73,6 +75,7 @@ async def add_member(user_id, config, active, method):
             PYRO.info(f"{noname} : accont has no usernames")
         updatecount(counterall)
         print(datetime.now().strftime("%H:%M:%S"))
+
     total_account = len(config['accounts'])
     PYRO.info(f'total account trying to login {total_account}')
     await asyncio.sleep(.2)
@@ -80,10 +83,7 @@ async def add_member(user_id, config, active, method):
     logined_account = len(applist)
     PYRO.info(f"total logind account {logined_account}")
     await asyncio.sleep(1)
-    if method[0] == 'u':
-        usermethod = "username"
-    else:
-        usermethod = "userid"
+    usermethod = "username" if method[0] == 'u' else "userid"
     print(len(user_id), counter)
     # stoer 
     if platform.system() == 'Windows':
@@ -94,12 +94,14 @@ async def add_member(user_id, config, active, method):
         signal.signal(signal.SIGTSTP, handler)
     while len(user_id) - counter > 1:
         leftmem = len(user_id) - counter
-        counterall = {'counter': int(counter), 
-                      'left_to_add': int(leftmem),
-                      'added': int(added2) + int(added),
-                      'skipped': int(skipped2) + int(skipped),
-                      'privacy': int(privacy2) + int(privacy),
-                      'already in too many channel/group':int(uc2) + int(uc)}
+        counterall = {
+            'counter': counter,
+            'left_to_add': int(leftmem),
+            'added': added2 + int(added),
+            'skipped': skipped2 + int(skipped),
+            'privacy': privacy2 + int(privacy),
+            'already in too many channel/group': uc2 + int(uc),
+        }
         for account in applist:
             try:
                 if applist == False:
@@ -157,8 +159,8 @@ async def add_member(user_id, config, active, method):
                 await prints()
             except UserBannedInChannel: 
                 await app.stop()
-                applist.remove(account)  
-                PYRO.info(f'phone number limited')  
+                applist.remove(account)
+                PYRO.info('phone number limited')
                 await prints()
             except UsernameNotOccupied:
                 PYRO.info("user not using username anymore")
